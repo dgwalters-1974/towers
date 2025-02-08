@@ -8,6 +8,7 @@ corpus/*.pkl
 checkpoints/*.pth
 __pycache__
 wandb
+sandbox.ipynb
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
