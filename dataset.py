@@ -49,11 +49,12 @@ class Triplets(torch.utils.data.Dataset):
     neg = self.to_emb(neg)
     return qry, pos, neg
 
-  def to_emb(self, text):
+  def to_emb(self, text: str) -> torch.Tensor:
     text = self.preprocess(text)
     tkns = [self.tkns[t] for t in text if t in self.tkns]
     if len(tkns) == 0: return
-    tkns = torch.tensor(tkns).to('cuda:0')
+    tkns = torch.tensor(tkns)
+    tkns = tkns.to(self.embs.weight.device)
     embs = self.embs(tkns)
     return embs.mean(dim=0)
 
@@ -62,8 +63,8 @@ class Triplets(torch.utils.data.Dataset):
     text = text.replace('.',  ' <PERIOD> ')
     text = text.replace(',',  ' <COMMA> ')
     text = text.replace('"',  ' <QUOTATION_MARK> ')
-    text = text.replace('“',  ' <QUOTATION_MARK> ')
-    text = text.replace('”',  ' <QUOTATION_MARK> ')
+    text = text.replace('"',  ' <QUOTATION_MARK> ')
+    text = text.replace('"',  ' <QUOTATION_MARK> ')
     text = text.replace(';',  ' <SEMICOLON> ')
     text = text.replace('!',  ' <EXCLAMATION_MARK> ')
     text = text.replace('?',  ' <QUESTION_MARK> ')
@@ -73,7 +74,7 @@ class Triplets(torch.utils.data.Dataset):
     text = text.replace('?',  ' <QUESTION_MARK> ')
     text = text.replace(':',  ' <COLON> ')
     text = text.replace("'",  ' <APOSTROPHE> ')
-    text = text.replace("’",  ' <APOSTROPHE> ')
+    text = text.replace("'",  ' <APOSTROPHE> ')
     return text.split()
 
 

@@ -1,6 +1,6 @@
 import requests
 import datasets
-
+import pickle
 
 # Loads the MS MARCO dataset
 ds = datasets.load_dataset('microsoft/ms_marco', 'v1.1') # Loads the MS MARCO dataset
